@@ -1,9 +1,10 @@
 <?php
 return array(
     'speck-girocheckout-api' => array(
-       'username' 				=> '',
-       'password' 				=> '',
-       'signature'				=> '',
-       'endpoint'               => 'https://api-3t.sandbox.paypal.com/nvp' //;Live URL: https://api-3t.paypal.com/nvp
+        'merchantId'                             => '12345678',
+		'projectId'                              => '12345',
+		'hash'                              	 => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AXLHPxDxRDsb7ufH6cCLl8FPtJ6N',
+		'endpoint'               				 => 'https://payment.girosolution.de/girocheckout/api/v2',
+		'redirect'                               => 'https://payment.girosolution.de',
     )
 );

@@ -3,12 +3,12 @@ namespace Girocheckout\Request;
 
 use Girocheckout\Request\AbstractRequest;
 
-class GiropayBankstatus extends AbstractRequest
+class GiropayTransactionDetails extends AbstractRequest
 {
-    const METHOD = "/giropay/bankstatus";
+    const METHOD = "/transaction/status";
 
     protected $method;
-    protected $bic;
+    protected $reference;
 
 
     public function __construct($options = array())
@@ -17,16 +17,17 @@ class GiropayBankstatus extends AbstractRequest
         $this->setMethod(self::METHOD);
     }
 
-    public function setBic($bic)
+    public function setReference($reference)
     {
-        $this->bic = $bic;
+        $this->reference = $reference;
 
         return $this;
     }
 
-    public function getBic()
+    
+    public function getReference()
     {
-        return $this->bic;
+        return $this->reference;
     }
 
     /**
@@ -40,7 +41,7 @@ class GiropayBankstatus extends AbstractRequest
      */
     public function isValid()
     {
-        if(empty($this->bic)) {
+        if(empty($this->reference)) {
             return false;
         }
 
