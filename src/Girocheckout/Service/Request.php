@@ -16,6 +16,9 @@ class Request
      */
     protected $config;
 
+    protected function getHMACMD5Hash($secret, $data) {
+        return hash_hmac('MD5', $data, $secret);
+    }
     /**
      * Make the paypal request and return a Response object
      *
@@ -30,6 +33,17 @@ class Request
             $client = $this->client;
             $config = $this->config;
 
+            $requestArray = (array) $request;
+            unset($requestArray["\0*\0method"]);
+
+            $requestArray = array_filter($requestArray);
+
+
+            $requestConf['merchantId']     = $config->getMerchantId();
+            $requestConf['projectId']      = $config->getProjectId();
+
+            $params = array_merge($requestConf, $requestArray);
+
             if(false === $config->isValid()) {
                 throw new \Exception("Configuration is not valid.");
             }
@@ -38,19 +52,19 @@ class Request
                 throw new \Exception('Zend\Http\Client must be set and must be valid.');
             }
 
-            if(false === $request->isValid()) {
+            if(false === $request->toArray()) {
                 throw new \Exception(get_class($request) . " is invalid.");
             }
 
-            $jar = json_encode((array) $request);
+            $sortedValuesString             = implode('', array_values($params));
+            $result_hash['hash']            = $this->getHMACMD5Hash($config->getHash(), $sortedValuesString);
 
-            $find = array("*","\u0000");
-
-            $jar = str_replace($find, '', $jar);
+            $result = array_merge($result_hash, $params);
 
             $client->setMethod('post');
             $client->setUri(new \Zend\Uri\Http($config->getEndpoint().$request->getMethod()));
-            $client->setRawBody($jar);
+
+            $client->setParameterPost($result);
 
             $httpResponse = $client->send();
 

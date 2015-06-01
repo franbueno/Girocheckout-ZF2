@@ -8,24 +8,24 @@ class GiropayTransaction extends AbstractRequest
     const METHOD = "/transaction/start";
 
     protected $method;
-    protected $urlRedirect;
-    protected $urlNotify;
-    protected $amount;
-    protected $merchantTxId;
-    protected $currency;
-    protected $purpose;
-    protected $bic;
-    protected $iban;
-    protected $info1Label;
-    protected $info1Text;
-    protected $info2Label;
-    protected $info2Text;
-    protected $info3Label;
-    protected $info3Text;
-    protected $info4Label;
-    protected $info4Text;
-    protected $info5Label;
-    protected $info5Text;
+    public $merchantTxId;
+    public $amount;
+    public $currency;
+    public $purpose;
+    public $bic;
+    public $iban;
+    public $urlRedirect;
+    public $urlNotify;
+    public $info1Label;
+    public $info1Text;
+    public $info2Label;
+    public $info2Text;
+    public $info3Label;
+    public $info3Text;
+    public $info4Label;
+    public $info4Text;
+    public $info5Label;
+    public $info5Text;
 
 
     public function __construct($options = array())

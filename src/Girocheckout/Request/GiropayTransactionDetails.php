@@ -8,7 +8,7 @@ class GiropayTransactionDetails extends AbstractRequest
     const METHOD = "/transaction/status";
 
     protected $method;
-    protected $reference;
+    public $reference;
 
 
     public function __construct($options = array())

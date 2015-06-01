@@ -8,7 +8,7 @@ class GiropayBankstatus extends AbstractRequest
     const METHOD = "/giropay/bankstatus";
 
     protected $method;
-    protected $bic;
+    public $bic;
 
 
     public function __construct($options = array())
